@@ -17,19 +17,19 @@ The Aptos MoveKit Access Control system provides secure, type-safe role-based ac
 classDiagram
     class AdminRegistry {
         +address current_admin
-        +Option~address~ pending_admin
+        +Option pending_admin
     }
     
     class RoleRegistry {
-        +Table~address, OrderedMap~TypeInfo, bool~~ roles
+        +Table roles
     }
     
     class Admin {
         <<phantom type>>
     }
     
-    AdminRegistry ||--|| RoleRegistry : synchronized
-    RoleRegistry ||--o* Admin : manages
+    AdminRegistry -- RoleRegistry : synchronized
+    RoleRegistry -- Admin : manages
 ```
 
 ## System Architecture
@@ -191,4 +191,4 @@ External contracts integrate through:
 - `require_role<T>()` for permission checks
 - `has_role<T>()` for conditional logic
 - View functions for role queries
-- Event listening for audit systems:w
+- Event listening for audit systems
